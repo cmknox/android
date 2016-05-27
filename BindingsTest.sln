@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BindingsTest", "BindingsTest\BindingsTest.csproj", "{52600948-AB82-4722-AD3A-0892F33E5603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JarBinding", "..\ClassLibrary2\ClassLibrary2\JarBinding.csproj", "{C6B0833A-AD3B-4ACA-9512-70A6393D4E7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JarBinding", "JarBinding.csproj", "{C6B0833A-AD3B-4ACA-9512-70A6393D4E7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

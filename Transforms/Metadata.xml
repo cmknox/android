@@ -1,9 +1,63 @@
 <metadata>
-  <!--
-  This sample removes the class: android.support.v4.content.AsyncTaskLoader.LoadTask:
-  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='AsyncTaskLoader.LoadTask']" />
-  
-  This sample removes the method: android.support.v4.content.CursorLoader.loadInBackground:
-  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='CursorLoader']/method[@name='loadInBackground']" />
-  -->
+
+	<!-- Rename the namespace to a more .NET friendly name -->
+	<attr path="/api/package[@name='com.microsoft.cdp']" name="managedName">Microsoft.Cdp</attr>
+
+	<!-- Duplicate EventArgs classes were generated, rename this one to avoid conflict -->
+	<attr 
+		path="/api/package[@name='com.microsoft.cdp']/interface[@name='IDeviceGraphQueryListener']/method[@name='onError']"
+		name="argsType">GraphQueryListenerErrorEventArgs</attr>
+	<attr 
+		path="/api/package[@name='com.microsoft.cdp']/interface[@name='IDiscoveredDeviceListener']/method[@name='onError']"
+		name="argsType">DiscoveredDeviceListenerErrorEventArgs</attr>
+
+	<!-- These were not declared public in java, so they are bound as private in C#,
+			however, some public classes inherit or implement them, so they need to be public too -->
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='AppId']" name="visibility">public</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='Listenable']" name="visibility">public</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IConnectionRequestListener']" name="visibility">public</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IDiscoveredDeviceListener']" name="visibility">public</attr>
+
+	<!-- Fix up Parameter names so they aren't p0, p1, etc. -->
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IConnectionRequestListener']/method[@name='onConnectionRequestError']/parameter[1]" name="managedName">error</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IBinaryClientListener']/method[@name='onBinaryClientData']/parameter[1]" name="managedName">data</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IBinaryClientListener']/method[@name='onError']/parameter[1]" name="managedName">error</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IDeviceGraphQueryFilter']/method[@name='check']/parameter[1]" name="managedName">device</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IDeviceGraphQueryListener']/method[@name='onDeviceDiscovered']/parameter[1]" name="managedName">device</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IDeviceGraphQueryListener']/method[@name='onDiscoveryComplete']/parameter[1]" name="managedName">devices</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IDeviceGraphQueryListener']/method[@name='onError']/parameter[1]" name="managedName">error</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/interface[@name='IDiscoveredDeviceListener']/method[@name='onError']/parameter[1]" name="managedName">error</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='AppLocation']/method[@name='fromInt' and count(parameter)=1 and parameter[1][@type='int']]/parameter[1]" name="managedName">value</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='AppLocation']/method[@name='valueOf' and count(parameter)=1 and parameter[1][@type='java.lang.String']]/parameter[1]" name="managedName">nameValue</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='BinaryClient']/constructor[@name='BinaryClient' and count(parameter)=2 and parameter[1][@type='com.microsoft.cdp.ConnectionRequest'] and parameter[2][@type='com.microsoft.cdp.CDPTarget']]/parameter[1]" name="managedName">request</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='BinaryClient']/constructor[@name='BinaryClient' and count(parameter)=2 and parameter[1][@type='com.microsoft.cdp.ConnectionRequest'] and parameter[2][@type='com.microsoft.cdp.CDPTarget']]/parameter[2]" name="managedName">target</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='BinaryClient']/method[@name='onConnectionRequestError' and count(parameter)=1 and parameter[1][@type='com.microsoft.cdp.CDPError']]/parameter[1]" name="managedName">error</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='BinaryClient']/method[@name='sendData' and count(parameter)=1 and parameter[1][@type='byte[]']]/parameter[1]" name="managedName">data</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPError']/method[@name='fromInt' and count(parameter)=1 and parameter[1][@type='int']]/parameter[1]" name="managedName">value</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPError']/method[@name='valueOf' and count(parameter)=1 and parameter[1][@type='java.lang.String']]/parameter[1]" name="managedName">nameValue</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPException']/constructor[@name='CDPException' and count(parameter)=3 and parameter[1][@type='int'] and parameter[2][@type='int'] and parameter[3][@type='java.lang.String']]/parameter[1]" name="managedName">independentError</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPException']/constructor[@name='CDPException' and count(parameter)=3 and parameter[1][@type='int'] and parameter[2][@type='int'] and parameter[3][@type='java.lang.String']]/parameter[2]" name="managedName">platformError</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPException']/constructor[@name='CDPException' and count(parameter)=3 and parameter[1][@type='int'] and parameter[2][@type='int'] and parameter[3][@type='java.lang.String']]/parameter[3]" name="managedName">message</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPException']/constructor[@name='CDPException' and count(parameter)=4 and parameter[1][@type='int'] and parameter[2][@type='int'] and parameter[3][@type='java.lang.String'] and parameter[4][@type='java.lang.Throwable']]/parameter[1]" name="managedName">independentError</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPException']/constructor[@name='CDPException' and count(parameter)=4 and parameter[1][@type='int'] and parameter[2][@type='int'] and parameter[3][@type='java.lang.String'] and parameter[4][@type='java.lang.Throwable']]/parameter[2]" name="managedName">platformError</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPException']/constructor[@name='CDPException' and count(parameter)=4 and parameter[1][@type='int'] and parameter[2][@type='int'] and parameter[3][@type='java.lang.String'] and parameter[4][@type='java.lang.Throwable']]/parameter[3]" name="managedName">message</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPException']/constructor[@name='CDPException' and count(parameter)=4 and parameter[1][@type='int'] and parameter[2][@type='int'] and parameter[3][@type='java.lang.String'] and parameter[4][@type='java.lang.Throwable']]/parameter[4]" name="managedName">throwable</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPException']/constructor[@name='CDPException' and count(parameter)=1 and parameter[1][@type='java.lang.String']]/parameter[1]" name="managedName">message</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPPlatform']/method[@name='initialize' and count(parameter)=1 and parameter[1][@type='android.content.Context']]/parameter[1]" name="managedName">context</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPTarget']/constructor[@name='CDPTarget' and count(parameter)=2 and parameter[1][@type='java.lang.String'] and parameter[2][@type='int']]/parameter[1]" name="managedName">stationName</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPTarget']/constructor[@name='CDPTarget' and count(parameter)=2 and parameter[1][@type='java.lang.String'] and parameter[2][@type='int']]/parameter[2]" name="managedName">titleId</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPTarget']/constructor[@name='CDPTarget' and count(parameter)=4 and parameter[1][@type='java.lang.String'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='java.lang.String'] and parameter[4][@type='short']]/parameter[1]" name="managedName">stationName</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPTarget']/constructor[@name='CDPTarget' and count(parameter)=4 and parameter[1][@type='java.lang.String'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='java.lang.String'] and parameter[4][@type='short']]/parameter[2]" name="managedName">packageId</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPTarget']/constructor[@name='CDPTarget' and count(parameter)=4 and parameter[1][@type='java.lang.String'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='java.lang.String'] and parameter[4][@type='short']]/parameter[3]" name="managedName">alternateId</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='CDPTarget']/constructor[@name='CDPTarget' and count(parameter)=4 and parameter[1][@type='java.lang.String'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='java.lang.String'] and parameter[4][@type='short']]/parameter[4]" name="managedName">instanceId</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='ConnectionRequest']/constructor[@name='ConnectionRequest' and count(parameter)=2 and parameter[1][@type='com.microsoft.cdp.ConnectionType'] and parameter[2][@type='com.microsoft.cdp.DiscoveredDevice']]/parameter[1]" name="managedName">theType</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='ConnectionRequest']/constructor[@name='ConnectionRequest' and count(parameter)=2 and parameter[1][@type='com.microsoft.cdp.ConnectionType'] and parameter[2][@type='com.microsoft.cdp.DiscoveredDevice']]/parameter[2]" name="managedName">device</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='ConnectionRequest']/method[@name='onError' and count(parameter)=1 and parameter[1][@type='com.microsoft.cdp.CDPError']]/parameter[1]" name="managedName">error</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='ConnectionType']/method[@name='valueOf' and count(parameter)=1 and parameter[1][@type='java.lang.String']]/parameter[1]" name="managedName">nameValue</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='DeviceGraphQuery']/method[@name='addFilter' and count(parameter)=1 and parameter[1][@type='com.microsoft.cdp.IDeviceGraphQueryFilter']]/parameter[1]" name="managedName">filter</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='DeviceGraphQuery']/method[@name='findByIpAsync' and count(parameter)=1 and parameter[1][@type='java.lang.String']]/parameter[1]" name="managedName">address</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='Launcher']/method[@name='launchUriAsync' and count(parameter)=3 and parameter[1][@type='com.microsoft.cdp.ConnectionRequest'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.microsoft.cdp.AppLocation']]/parameter[1]" name="managedName">connectionRequest</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='Launcher']/method[@name='launchUriAsync' and count(parameter)=3 and parameter[1][@type='com.microsoft.cdp.ConnectionRequest'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.microsoft.cdp.AppLocation']]/parameter[2]" name="managedName">uri</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='Launcher']/method[@name='launchUriAsync' and count(parameter)=3 and parameter[1][@type='com.microsoft.cdp.ConnectionRequest'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.microsoft.cdp.AppLocation']]/parameter[3]" name="managedName">location</attr>
+	<attr path="/api/package[@name='com.microsoft.cdp']/class[@name='Launcher']/method[@name='onConnectionRequestError' and count(parameter)=1 and parameter[1][@type='com.microsoft.cdp.CDPError']]/parameter[1]" name="managedName">error</attr>
 </metadata>
