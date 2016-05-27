@@ -73,6 +73,12 @@
   <ItemGroup>
     <Content Include="Resources\JarBinding.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JarBinding.csproj">
+      <Project>{C6B0833A-AD3B-4ACA-9512-70A6393D4E7A}</Project>
+      <Name>JarBinding</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
